@@ -1,0 +1,144 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.att.oce.bpm.camunda</groupId>
+  <artifactId>UpgradeDf</artifactId>
+  <version>0.1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>UpgradeDf</name>
+
+
+<properties>
+	    <camunda.version>7.4.0</camunda.version>
+	    <spring.version>3.1.2.RELEASE</spring.version>
+	    <skipTests>true</skipTests>
+</properties>
+
+ <!-- import Camunda BOM to ensure correct versions of Camunda projects -->
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.camunda.bpm</groupId>
+        <artifactId>camunda-bom</artifactId>
+        <version>${camunda.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.camunda.bpm</groupId>
+      <artifactId>camunda-engine</artifactId>
+      <version>${camunda.version}</version>
+  	  <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.camunda.bpm</groupId>
+      <artifactId>camunda-engine-spring</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    
+    <dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>4.11</version>
+		<scope>test</scope>
+	</dependency>
+    
+    <!-- Shared Process Engine (https://docs.camunda.org/get-started/spring/shared-process-engine/)
+    	Furthermore, you can delete the dependencies org.springframework:spring-jdbc, com.h2database:h2, and org.slf4j:slf4j-jdk14. 
+    -->
+    
+  
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.3.171</version>
+    </dependency>  
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-jdk14</artifactId>
+      <version>1.7.13</version>
+    </dependency>
+
+    
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.0.1</version>
+      <scope>provided</scope>
+    </dependency>
+    
+    <dependency>
+    <groupId>org.camunda.bpm.extension</groupId> 
+        <artifactId>camunda-bpm-assert</artifactId> 
+        <version>1.1</version>
+    </dependency>
+    <!-- OPTIONAL: spin process engine plugin -->
+    <dependency>
+      <groupId>org.camunda.bpm</groupId>
+      <artifactId>camunda-engine-plugin-spin</artifactId>
+    </dependency>
+
+    <!-- OPTIONAL: spin dataformats -->
+    <dependency>
+      <groupId>org.camunda.spin</groupId>
+      <artifactId>camunda-spin-dataformat-json-jackson</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.camunda.spin</groupId>
+      <artifactId>camunda-spin-dataformat-xml-dom</artifactId>
+    </dependency>
+    
+    
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.3</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <skipTests>${skipTests}</skipTests>
+        </configuration>
+      </plugin>
+      <plugin>
+    	<artifactId>maven-compiler-plugin</artifactId>
+    	<executions>
+	      	<execution>
+	        <id>default-testCompile</id>
+	        <phase>test-compile</phase>
+	        <goals>
+	          <goal>testCompile</goal>
+	        </goals>
+	        <configuration>
+	          <failOnError>false</failOnError>
+	        </configuration>
+	      	</execution>
+    	</executions>
+ 	 </plugin>
+ 	 <plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-surefire-plugin</artifactId>
+		<version>2.12.4</version>
+		<configuration>
+			<skipTests>true</skipTests>
+		</configuration>
+    </plugin>
+    </plugins>
+  </build>
+
+</project>
