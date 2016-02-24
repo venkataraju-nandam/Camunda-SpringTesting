@@ -33,9 +33,16 @@
   <property name="deploymentResources" value="classpath*:*.bpmn" />
 </bean>
 
+<!-- Step 1 : Used this for Test Case Running Purpose. Even without this, test cases running.  
 <bean id="processEngine" class="org.camunda.bpm.engine.spring.ProcessEngineFactoryBean">
   <property name="processEngineConfiguration" ref="processEngineConfiguration" />
 </bean>
+-->
+
+<!-- bind the process engine service as Spring Bean -->
+  <bean name="processEngineService" class="org.camunda.bpm.BpmPlatform" factory-method="getProcessEngineService" />
+<!-- bind the default process engine as Spring Bean  -->
+  <bean name="processEngine" factory-bean="processEngineService" factory-method="getDefaultProcessEngine" />
 
 <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
 <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />

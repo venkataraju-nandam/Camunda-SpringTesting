@@ -4,17 +4,16 @@ import org.camunda.bpm.application.PostDeploy;
 import org.camunda.bpm.application.ProcessApplication;
 import org.camunda.bpm.application.impl.ServletProcessApplication;
 import org.camunda.bpm.engine.ProcessEngine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ProcessApplication("UpgradeDfApplication App")
 public class UpgradeDfApplication extends ServletProcessApplication {
-  // empty implementation
+	 static Logger LOGGER = LoggerFactory.getLogger(UpgradeDfApplication.class);
+			
 	@PostDeploy
 	public void startProcessInstance(ProcessEngine processEngine) {
-		System.out.println("\n\n\n*****UpgradeDfApplication App started !!! *****");
+
+		LOGGER.info("\n\n\n*****UpgradeDfApplication App started !!! *****");
 	}
 }
-
-
-//public class UpgradeDfApplication{
-//  // empty implementation
-//}
